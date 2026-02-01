@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Github Bookmark - Android app for searching GitHub users and managing bookmarks. Written in Kotlin targeting SDK 23-33.
+Github Bookmark - Android app for searching GitHub users and managing bookmarks. Written in Kotlin 2.0.21 targeting SDK 24-35.
 
 ## Build Commands
 
@@ -13,6 +13,8 @@ Github Bookmark - Android app for searching GitHub users and managing bookmarks.
 ./gradlew assembleRelease    # Build release APK
 ./gradlew installDebug       # Build and install to connected device
 ./gradlew test               # Run unit tests
+./gradlew ktlintCheck        # Check code style
+./gradlew ktlintFormat       # Auto-fix code style
 ./gradlew clean              # Clean build artifacts
 ```
 
@@ -22,8 +24,8 @@ Github Bookmark - Android app for searching GitHub users and managing bookmarks.
 
 ```
 app                    # Entry point, Hilt DI modules
-├── presentation       # Fragments, ViewModels, UI adapters (Android Library)
-├── component          # Reusable custom views (Android Library)
+├── presentation       # Compose Screens, ViewModels (Android Library)
+├── component          # Reusable Compose components (Android Library)
 ├── domain             # Use cases, repository interfaces, domain models (Pure Kotlin)
 ├── data               # Repository implementations, data source interfaces (Pure Kotlin)
 ├── remote             # Ktor HTTP client, GitHub API (Android Library)
@@ -32,22 +34,25 @@ app                    # Entry point, Hilt DI modules
 
 **Module dependency flow:** `app → presentation/remote/local → data → domain`
 
-**Data flow:** `Fragment → ViewModel → UseCase → Repository → DataSource`
+**Data flow:** `Composable Screen → ViewModel → UseCase → Repository → DataSource`
 
 ## Key Technologies
 
-- **DI:** Hilt 2.44.1
-- **Async:** Kotlin Coroutines + StateFlow
-- **Network:** Ktor Client (CIO engine) with kotlinx.serialization
-- **Database:** Room 2.4.3
-- **UI:** ViewBinding, Material Design, Glide for images
+- **Build:** Gradle 8.10.2, AGP 8.7.3, Kotlin 2.0.21, Java 17
+- **DI:** Hilt 2.54 (with KSP)
+- **Async:** Kotlin Coroutines 1.9.0 + StateFlow
+- **Network:** Ktor Client 3.0.3 (CIO engine) with kotlinx.serialization
+- **Database:** Room 2.6.1
+- **UI:** Jetpack Compose (BOM 2024.12.01), Material3, Coil 2.7.0
+- **Code Style:** ktlint 1.5.0
 
 ## Key Entry Points
 
 - `GithubBookmarkApplication` - Hilt application class
-- `MainActivity` - Single activity with ViewPager2 tabs
-- `GithubUserListFragment` - GitHub user search tab
-- `BookmarkUserListFragment` - Saved bookmarks tab
+- `MainActivity` - ComponentActivity with Compose setContent
+- `MainScreen` - Main Composable with HorizontalPager tabs
+- `GithubUserListScreen` - GitHub user search tab
+- `BookmarkUserListScreen` - Saved bookmarks tab
 
 ## DI Modules Location
 
@@ -58,4 +63,8 @@ All Hilt modules in `/app/src/main/java/com/parkjin/github_bookmark/di/`:
 
 ## State Management Pattern
 
-ViewModels use sealed classes for Actions/State with MutableStateFlow. UI observes via `repeatOnStarted` lifecycle extension.
+ViewModels use sealed classes for Actions/State with MutableStateFlow. UI observes via `collectAsStateWithLifecycle()`.
+
+## Version Catalog
+
+Dependencies are managed centrally in `gradle/libs.versions.toml`.
