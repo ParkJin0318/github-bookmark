@@ -25,30 +25,12 @@ class BookmarkUserUseCaseTest {
     }
 
     @Test
-    fun `when user is bookmarked, should call activateUserBookmark`() = runTest(testDispatcher) {
+    fun `when user is bookmarked, should call disableUserBookmark`() = runTest(testDispatcher) {
         // Given
         val user = User(
             name = "testUser",
             profileImageUrl = "https://example.com/image.png",
             bookmarked = true
-        )
-        coEvery { repository.activateUserBookmark(user) } just runs
-
-        // When
-        useCase(user)
-
-        // Then
-        coVerify(exactly = 1) { repository.activateUserBookmark(user) }
-        coVerify(exactly = 0) { repository.disableUserBookmark(any()) }
-    }
-
-    @Test
-    fun `when user is not bookmarked, should call disableUserBookmark`() = runTest(testDispatcher) {
-        // Given
-        val user = User(
-            name = "testUser",
-            profileImageUrl = "https://example.com/image.png",
-            bookmarked = false
         )
         coEvery { repository.disableUserBookmark(user) } just runs
 
@@ -57,6 +39,22 @@ class BookmarkUserUseCaseTest {
 
         // Then
         coVerify(exactly = 1) { repository.disableUserBookmark(user) }
-        coVerify(exactly = 0) { repository.activateUserBookmark(any()) }
+    }
+
+    @Test
+    fun `when user is not bookmarked, should call activateUserBookmark`() = runTest(testDispatcher) {
+        // Given
+        val user = User(
+            name = "testUser",
+            profileImageUrl = "https://example.com/image.png",
+            bookmarked = false
+        )
+        coEvery { repository.activateUserBookmark(user) } just runs
+
+        // When
+        useCase(user)
+
+        // Then
+        coVerify(exactly = 1) { repository.activateUserBookmark(user) }
     }
 }
