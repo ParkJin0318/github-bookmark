@@ -5,6 +5,6 @@ enum class MainTabType(val title: String) {
     BOOKMARK("Bookmark");
 
     companion object {
-        fun from(ordinal: Int) = values().find { it.ordinal == ordinal } ?: GITHUB
+        fun from(ordinal: Int) = entries.find { it.ordinal == ordinal } ?: GITHUB
     }
 }

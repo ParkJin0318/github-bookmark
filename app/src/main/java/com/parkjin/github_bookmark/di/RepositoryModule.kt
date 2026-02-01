@@ -18,15 +18,12 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun providesGithubUserRepository(
-        @RemoteDataSource remoteDataSource: GithubUserDataSource,
-    ): GithubUserRepository =
+    fun providesGithubUserRepository(@RemoteDataSource remoteDataSource: GithubUserDataSource): GithubUserRepository =
         GithubUserRepositoryImpl(remoteDataSource)
 
     @Singleton
     @Provides
     fun providesBookmarkUserRepository(
         @LocalDataSource localDataSource: BookmarkUserDataSource
-    ): BookmarkUserRepository =
-        BookmarkUserRepositoryImpl(localDataSource)
+    ): BookmarkUserRepository = BookmarkUserRepositoryImpl(localDataSource)
 }

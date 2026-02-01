@@ -15,6 +15,5 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun provideUserApi(httpClient: HttpClient): GithubUserApi =
-        GithubUserApiImpl(httpClient)
+    fun provideUserApi(httpClient: HttpClient): GithubUserApi = GithubUserApiImpl(httpClient)
 }

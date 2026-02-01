@@ -14,17 +14,15 @@ class GetGithubUsersUseCase(
     private val bookmarkUserRepository: BookmarkUserRepository
 ) {
 
-    operator fun invoke(name: String): Flow<List<User>> {
-        return githubUserRepository.getUsers(name)
-            .flowOn(dispatcher)
-            .combine(
-                bookmarkUserRepository.getUsers(name)
-                    .flowOn(dispatcher)
-            ) { githubUsers, bookmarkUsers ->
-                githubUsers.map { user ->
-                    val bookmarked = bookmarkUsers.map { it.name }.contains(user.name)
-                    user.copy(bookmarked = bookmarked)
-                }
+    operator fun invoke(name: String): Flow<List<User>> = githubUserRepository.getUsers(name)
+        .flowOn(dispatcher)
+        .combine(
+            bookmarkUserRepository.getUsers(name)
+                .flowOn(dispatcher)
+        ) { githubUsers, bookmarkUsers ->
+            githubUsers.map { user ->
+                val bookmarked = bookmarkUsers.map { it.name }.contains(user.name)
+                user.copy(bookmarked = bookmarked)
             }
-    }
+        }
 }

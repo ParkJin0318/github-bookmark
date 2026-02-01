@@ -4,4 +4,4 @@ import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class GithubBookmarkApplication: Application()
+class GithubBookmarkApplication : Application()

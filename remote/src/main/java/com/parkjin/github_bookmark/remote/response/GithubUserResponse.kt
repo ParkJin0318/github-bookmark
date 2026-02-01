@@ -12,8 +12,7 @@ data class GithubUserResponse(
     val profileImageUrl: String
 )
 
-fun GithubUserResponse.toModel() =
-    GithubUser(
-        name,
-        profileImageUrl
-    )
+fun GithubUserResponse.toModel() = GithubUser(
+    name,
+    profileImageUrl
+)

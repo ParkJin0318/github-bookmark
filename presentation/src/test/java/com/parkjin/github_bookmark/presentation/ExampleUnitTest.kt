@@ -1,8 +1,7 @@
 package com.parkjin.github_bookmark.presentation
 
-import org.junit.Test
-
 import org.junit.Assert.*
+import org.junit.Test
 
 /**
  * Example local unit test, which will execute on the development machine (host).

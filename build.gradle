@@ -1,43 +1,24 @@
-buildscript {
-    ext {
-        compileSdk = 33
-        targetSdk = 33
-        minSdk = 23
-        versionCode = 1
-        versionName = "1.0"
-
-        kotlinVersion = '1.8.20'
-        gradleVersion = '7.3.0'
-
-        coroutineVersion = '1.6.4'
-        lifecycleVersion = '2.2.0'
-
-        hiltVersion = '2.44.1'
-
-        ktorVersion = '2.2.4'
-
-        roomVersion = '2.4.3'
-
-        glideVersion = '4.13.0'
-
-        materialVersion = '1.7.0'
-    }
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath "com.android.tools.build:gradle:$gradleVersion"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion"
-        classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
-    }
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.kotlin.parcelize) apply false
+    alias(libs.plugins.kotlin.compose) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.ktlint)
 }
 
 allprojects {
-    repositories {
-        google()
-        mavenCentral()
+    apply plugin: "org.jlleitschuh.gradle.ktlint"
+
+    ktlint {
+        version = "1.5.0"
+        android = true
+        verbose = true
+        outputColorName = "RED"
     }
 }
 

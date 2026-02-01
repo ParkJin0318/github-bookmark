@@ -18,10 +18,8 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun provideBookmarkUserUseCase(
-        @IoDispatcher dispatcher: CoroutineDispatcher,
-        repository: BookmarkUserRepository
-    ) = BookmarkUserUseCase(dispatcher, repository)
+    fun provideBookmarkUserUseCase(@IoDispatcher dispatcher: CoroutineDispatcher, repository: BookmarkUserRepository) =
+        BookmarkUserUseCase(dispatcher, repository)
 
     @Singleton
     @Provides

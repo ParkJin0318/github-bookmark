@@ -11,14 +11,12 @@ class BookmarkUserEntity(
     val profileImageUrl: String
 )
 
-fun BookmarkUserEntity.toModel() =
-    BookmarkUser(
-        name,
-        profileImageUrl
-    )
+fun BookmarkUserEntity.toModel() = BookmarkUser(
+    name,
+    profileImageUrl
+)
 
-fun BookmarkUser.toEntity() =
-    BookmarkUserEntity(
-        name,
-        profileImageUrl
-    )
+fun BookmarkUser.toEntity() = BookmarkUserEntity(
+    name,
+    profileImageUrl
+)

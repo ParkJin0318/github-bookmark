@@ -7,6 +7,7 @@ import com.parkjin.github_bookmark.domain.usecase.BookmarkUserUseCase
 import com.parkjin.github_bookmark.domain.usecase.GetGithubUsersUseCase
 import com.parkjin.github_bookmark.presentation.ui.common.UserListModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +16,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
-import javax.inject.Inject
 
 @HiltViewModel
 class GithubUserListViewModel @Inject constructor(
@@ -28,10 +28,7 @@ class GithubUserListViewModel @Inject constructor(
         data class BookmarkUser(val user: User) : Action()
     }
 
-    data class State(
-        val userListModels: List<UserListModel>,
-        val errorMessage: String?
-    )
+    data class State(val userListModels: List<UserListModel>, val errorMessage: String?)
 
     private val _state = MutableStateFlow(
         State(
@@ -83,17 +80,12 @@ class GithubUserListViewModel @Inject constructor(
             .onEach { users ->
                 userListModels.clear()
 
-                users.map { user ->
-                    UserListModel.UserModel(
-                        user = user,
-                        toggleBookmark = { setAction(Action.BookmarkUser(it.user)) }
-                    )
-                }
+                users.map { user -> UserListModel.UserModel(user) }
                     .sortedBy(UserListModel.UserModel::header)
                     .groupBy(UserListModel.UserModel::header)
-                    .forEach { (header, users) ->
+                    .forEach { (header, models) ->
                         userListModels.add(UserListModel.HeaderModel(header))
-                        userListModels.addAll(users)
+                        userListModels.addAll(models)
                     }
 
                 setState(userListModels = userListModels)

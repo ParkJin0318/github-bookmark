@@ -8,17 +8,13 @@ import com.parkjin.github_bookmark.remote.response.toModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class GithubUserRemoteDataSourceImpl(
-    private val api: GithubUserApi
-) : GithubUserDataSource {
+class GithubUserRemoteDataSourceImpl(private val api: GithubUserApi) : GithubUserDataSource {
 
-    override fun getUsers(name: String): Flow<List<GithubUser>> {
-        return flow {
-            emit(
-                api.getGithubUsers("$name+in:login")
-                    .items
-                    .map(GithubUserResponse::toModel)
-            )
-        }
+    override fun getUsers(name: String): Flow<List<GithubUser>> = flow {
+        emit(
+            api.getGithubUsers("$name+in:login")
+                .items
+                .map(GithubUserResponse::toModel)
+        )
     }
 }

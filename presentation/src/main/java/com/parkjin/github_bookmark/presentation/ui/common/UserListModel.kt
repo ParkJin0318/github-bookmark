@@ -10,14 +10,11 @@ sealed interface UserListModel {
         override val header: Char? = this.value
     }
 
-    data class UserModel(
-        val user: User,
-        val toggleBookmark: (UserModel) -> Unit
-    ) : UserListModel {
+    data class UserModel(val user: User) : UserListModel {
         override val header: Char? = user.name.firstOrNull()?.uppercaseChar()
     }
 
-    object LoadingModel : UserListModel {
+    data object LoadingModel : UserListModel {
         override val header: Char? = null
     }
 }

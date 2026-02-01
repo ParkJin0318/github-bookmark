@@ -19,14 +19,12 @@ object DataSourceModule {
     @LocalDataSource
     @Singleton
     @Provides
-    fun providesBookmarkUserLocalDataSource(
-        dao: BookmarkUserDao
-    ): BookmarkUserDataSource = BookmarkUserLocalDataSourceImpl(dao)
+    fun providesBookmarkUserLocalDataSource(dao: BookmarkUserDao): BookmarkUserDataSource =
+        BookmarkUserLocalDataSourceImpl(dao)
 
     @RemoteDataSource
     @Singleton
     @Provides
-    fun providesGithubUserRemoteDataSource(
-        api: GithubUserApi
-    ): GithubUserDataSource = GithubUserRemoteDataSourceImpl(api)
+    fun providesGithubUserRemoteDataSource(api: GithubUserApi): GithubUserDataSource =
+        GithubUserRemoteDataSourceImpl(api)
 }

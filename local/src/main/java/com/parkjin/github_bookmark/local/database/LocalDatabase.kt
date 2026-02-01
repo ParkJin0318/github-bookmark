@@ -10,6 +10,6 @@ import com.parkjin.github_bookmark.local.entity.BookmarkUserEntity
     entities = [BookmarkUserEntity::class],
     exportSchema = false
 )
-abstract class LocalDatabase: RoomDatabase() {
+abstract class LocalDatabase : RoomDatabase() {
     abstract fun bookmarkUserDao(): BookmarkUserDao
 }

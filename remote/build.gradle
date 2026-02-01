@@ -1,18 +1,16 @@
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'kotlinx-serialization'
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
-    compileSdk rootProject.compileSdk
+    namespace "com.parkjin.github_bookmark.remote"
+    compileSdk libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
-        minSdk 23
-        targetSdk 31
-        minSdk rootProject.minSdk
-        targetSdk rootProject.targetSdk
+        minSdk libs.versions.minSdk.get().toInteger()
+        targetSdk libs.versions.targetSdk.get().toInteger()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -23,24 +21,24 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 }
 
 dependencies {
     implementation project(':data')
 
-    // Coroutine
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutineVersion"
+    // Coroutines
+    implementation libs.kotlinx.coroutines.core
 
     // Ktor
-    implementation "io.ktor:ktor-client-core:$rootProject.ktorVersion"
-    implementation "io.ktor:ktor-client-cio:$rootProject.ktorVersion"
-    implementation "io.ktor:ktor-client-logging:$rootProject.ktorVersion"
-    implementation "io.ktor:ktor-client-content-negotiation:$rootProject.ktorVersion"
-    implementation "io.ktor:ktor-serialization-kotlinx-json:$rootProject.ktorVersion"
+    implementation libs.ktor.client.core
+    implementation libs.ktor.client.cio
+    implementation libs.ktor.client.logging
+    implementation libs.ktor.client.content.negotiation
+    implementation libs.ktor.serialization.kotlinx.json
 }

@@ -8,15 +8,12 @@ import io.ktor.client.request.get
 
 class GithubUserApiImpl(private val httpClient: HttpClient) : GithubUserApi {
 
-    override suspend fun getGithubUsers(
-        keyword: String,
-        page: Int,
-        perPage: Int
-    ): GithubResponse<GithubUserResponse> = httpClient.get("search/users") {
-        url {
-            encodedParameters.append("q", keyword)
-            parameters.append("page", "$page")
-            parameters.append("per_page", "$perPage")
-        }
-    }.body()
+    override suspend fun getGithubUsers(keyword: String, page: Int, perPage: Int): GithubResponse<GithubUserResponse> =
+        httpClient.get("search/users") {
+            url {
+                encodedParameters.append("q", keyword)
+                parameters.append("page", "$page")
+                parameters.append("per_page", "$perPage")
+            }
+        }.body()
 }

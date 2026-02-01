@@ -9,15 +9,12 @@ import com.parkjin.github_bookmark.domain.repository.BookmarkUserRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class BookmarkUserRepositoryImpl(
-    private val localDataSource: BookmarkUserDataSource
-) : BookmarkUserRepository {
+class BookmarkUserRepositoryImpl(private val localDataSource: BookmarkUserDataSource) : BookmarkUserRepository {
 
-    override fun getUsers(name: String): Flow<List<User>> =
-        localDataSource.getUsers(name)
-            .map { bookmarkUsers ->
-                bookmarkUsers.map(BookmarkUser::toUser)
-            }
+    override fun getUsers(name: String): Flow<List<User>> = localDataSource.getUsers(name)
+        .map { bookmarkUsers ->
+            bookmarkUsers.map(BookmarkUser::toUser)
+        }
 
     override suspend fun activateUserBookmark(user: User) {
         localDataSource.activateUserBookmark(user.toBookmarkUser())

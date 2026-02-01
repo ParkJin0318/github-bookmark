@@ -9,9 +9,7 @@ import com.parkjin.github_bookmark.local.entity.toModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class BookmarkUserLocalDataSourceImpl(
-    private val dao: BookmarkUserDao
-) : BookmarkUserDataSource {
+class BookmarkUserLocalDataSourceImpl(private val dao: BookmarkUserDao) : BookmarkUserDataSource {
 
     override fun getUsers(name: String): Flow<List<BookmarkUser>> {
         val bookmarkUserEntities =

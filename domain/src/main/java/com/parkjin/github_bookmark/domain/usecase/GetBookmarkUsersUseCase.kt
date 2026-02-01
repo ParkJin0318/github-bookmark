@@ -11,8 +11,6 @@ class GetBookmarkUsersUseCase(
     private val bookmarkUserRepository: BookmarkUserRepository
 ) {
 
-    operator fun invoke(name: String): Flow<List<User>> {
-        return bookmarkUserRepository.getUsers(name)
-            .flowOn(dispatcher)
-    }
+    operator fun invoke(name: String): Flow<List<User>> = bookmarkUserRepository.getUsers(name)
+        .flowOn(dispatcher)
 }
